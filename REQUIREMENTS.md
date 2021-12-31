@@ -34,7 +34,7 @@ These are the notes from a meeting with the frontend developer that describe wha
     id SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
     price integer NOT NULL,
-    catagory VARCHAR
+    category VARCHAR
 
 #### User
 - id
