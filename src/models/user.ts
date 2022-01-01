@@ -49,7 +49,7 @@ export class UserStore {
             const sql =
                 'INSERT INTO users (username, password_digest, first_name, last_name, role) VALUES($1, $2, $3, $4, $5) RETURNING *'
             const hash = bcrypt.hashSync(u.password + pepper, parseInt(saltRounds))
-            console.log(`User Create Hash: ${hash}`)
+            //console.log(`User Create Hash: ${hash}`)
 
             //If role is not passed in or is not equal to admin it will be customer
             let role = 'customer'
@@ -61,6 +61,11 @@ export class UserStore {
             const user = result.rows[0]
             conn.release()
 
+            //Only return id, username, and role for JWT
+            delete user.password_digest
+            delete user.first_name
+            delete user.last_name
+            //console.log(user)
             return user
         } catch (err) {
             //Catch if user already exists in the DB
@@ -95,7 +100,7 @@ export class UserStore {
     async authenticate(username: string, password: string): Promise<User | null> {
         const conn = await Client.connect()
         const sql =
-            'SELECT username, password_digest FROM users WHERE username=($1)'
+            'SELECT id, username, role, password_digest FROM users WHERE username=($1)'
         const result = await conn.query(sql, [username])
         //console.log('Authenticate Model Pass+Pep: ', password + pepper)
 
@@ -105,7 +110,7 @@ export class UserStore {
 
 
             if (bcrypt.compareSync(password + pepper, user.password_digest)) {
-                //Dont return the password digest
+                //Only return id, username, and role for JWT
                 delete user.password_digest
                 console.log(`Authenticated for user: ${user.username}`)
                 return user

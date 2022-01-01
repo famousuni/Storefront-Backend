@@ -13,9 +13,9 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Users
 - Index [admin token required] - [GET] /api/users
-- Show (args: user id) [user token required] - [GET] /api/users/:id
-- Create [token required] - [POST] /api/users
-- Update [user token required] - [PUT] /api/users/:id
+- Show (args: user id) [user token required] - [GET] /api/users/:id (If tokens role is customer they can only get their own user object, if tokens role is admin they can get any user object)
+- Create - [POST] /api/users
+- Update [user token required] - [PUT] /api/users/:id (If tokens role is customer they can only update their own user object and cannot change their role, if tokens role is admin they can update any user object)
 - Login - [Post] /api/login
 
 #### Orders
