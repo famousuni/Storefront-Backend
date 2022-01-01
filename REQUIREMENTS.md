@@ -7,14 +7,15 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Products
 - Index - [GET] /api/products
 - Show (args: product id) - [GET] /api/products/:id
-- Create [Token Required] - [POST] /api/products - Admin Only
+- Create [admin token required] - [POST] /api/products
 - [OPTIONAL] Top 5 most popular products [GET] /api/most-popular-products
 - [OPTIONAL] Products by category (args: product category id) [GET] /api/products-by-category/:id
 
 #### Users
-- Index [token required] - [GET] /api/users - Admin Only
-- Show (args: user id) [token required] - [GET] /api/users/:id
+- Index [admin token required] - [GET] /api/users
+- Show (args: user id) [user token required] - [GET] /api/users/:id
 - Create [token required] - [POST] /api/users
+- Update [user token required] - [PUT] /api/users/:id
 - Login - [Post] /api/login
 
 #### Orders

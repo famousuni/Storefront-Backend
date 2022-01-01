@@ -5,7 +5,7 @@ dotenv.config()
 
 const { PG_USER, PG_PASSWORD, PG_DB, PG_TEST_DB, PG_HOST, ENV } = process.env
 
-console.log(`Database Environment is : ${ENV}`)
+console.log(`Database Environment is: ${ENV}`)
 let Client: Pool
 
 if (ENV === 'test') {
