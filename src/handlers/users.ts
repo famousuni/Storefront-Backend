@@ -6,8 +6,14 @@ import { verifyAuthToken, verifyAdminToken, addRole } from "../middleware/authen
 const store = new UserStore()
 
 const index = async(_req: Request, res: Response) => {
-    const users = await store.index()
-    res.json(users)
+    try {
+        const users = await store.index()
+        res.json(users)
+    } catch (err) {
+        res.status(400)
+        res.json(`Error: ${err.message}`)
+    }
+
 }
 
 const show = async(req: Request, res: Response) => {

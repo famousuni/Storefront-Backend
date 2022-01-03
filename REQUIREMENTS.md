@@ -48,8 +48,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Users Table
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
     password_digest VARCHAR,
     role VARCHAR(10)
     

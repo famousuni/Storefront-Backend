@@ -47,7 +47,7 @@ export class UserStore {
         try {
             const conn = await Client.connect()
             const sql =
-                'INSERT INTO users (username, password_digest, first_name, last_name, role) VALUES($1, $2, $3, $4, $5) RETURNING *'
+                'INSERT INTO users (username, password_digest, firstname, lastname, role) VALUES($1, $2, $3, $4, $5) RETURNING *'
             const hash = bcrypt.hashSync(u.password + pepper, parseInt(saltRounds))
             //console.log(`User Create Hash: ${hash}`)
 
@@ -63,8 +63,8 @@ export class UserStore {
 
             //Only return id, username, and role for JWT
             delete user.password_digest
-            delete user.first_name
-            delete user.last_name
+            delete user.firstname
+            delete user.lastname
             //console.log(user)
             return user
         } catch (err) {
@@ -77,7 +77,6 @@ export class UserStore {
     }
 
     async update(u: User): Promise<User> {
-        //TODO: Verify user JWT matches who they are trying to update
         try {
             const conn = await Client.connect()
             let sql = 'SELECT * FROM users WHERE id=($1)'
@@ -86,7 +85,7 @@ export class UserStore {
             if (foundUser === undefined) throw new Error(`User id ${u.id} not found`)
             //Hash presented password
             const hash = bcrypt.hashSync(u.password + pepper, parseInt(saltRounds))
-            sql = 'UPDATE users SET username=($1), password_digest=($2), first_name=($3), last_name=($4), role=($5) WHERE id=($6) RETURNING *'
+            sql = 'UPDATE users SET username=($1), password_digest=($2), firstname=($3), lastname=($4), role=($5) WHERE id=($6) RETURNING *'
             result = await conn.query(sql, [u.username, hash, u.firstname, u.lastname, u.role, u.id])
             const updatedUser = result.rows[0]
             conn.release()
@@ -107,12 +106,10 @@ export class UserStore {
         if (result.rows.length) {
             const user = result.rows[0]
 
-
-
             if (bcrypt.compareSync(password + pepper, user.password_digest)) {
                 //Only return id, username, and role for JWT
                 delete user.password_digest
-                console.log(`Authenticated for user: ${user.username}`)
+                //console.log(`Authenticated for user: ${user.username}`)
                 return user
             }
         }
