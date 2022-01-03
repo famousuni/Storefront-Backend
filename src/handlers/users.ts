@@ -18,7 +18,7 @@ const index = async(_req: Request, res: Response) => {
 
 const show = async(req: Request, res: Response) => {
     try {
-        console.log(res.locals.role)
+        //console.log(res.locals.role)
         if (res.locals.role === 'customer') {
             if (res.locals.id.toString() === req.params.id) {
                 const user = await store.show(req.params.id)
@@ -33,7 +33,7 @@ const show = async(req: Request, res: Response) => {
             throw new Error('invalid role in presented token')
         }
     } catch (err) {
-        res.status(400)
+        res.status(401)
         res.json(`Error: ${err.message}`)
     }
 
@@ -86,7 +86,7 @@ const update = async (req: Request, res: Response) => {
             throw new Error('invalid role in presented token')
         }
     } catch (err) {
-        res.status(400)
+        res.status(401)
         res.json(`Error: ${err.message}`)
     }
 }
