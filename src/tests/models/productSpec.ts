@@ -32,11 +32,11 @@ describe('Product Model', () => {
     })
     it('index method should return a list of products', async () => {
         const result = await store.index()
-        expect(result[2].name).toEqual('testproduct3')
-        expect(result[3].name).toEqual('testproduct4')
+        expect(result[3].name).toEqual('testproduct3')
+        expect(result[4].name).toEqual('testproduct4')
     })
     it('show method should return the correct product', async () => {
-        const result = await store.show('3')
-        expect(result).toEqual(jasmine.objectContaining({id: 3, name: 'testproduct3', price: 300, category: 'tools'}))
+        const result = await store.show('4')
+        expect(result).toEqual(jasmine.objectContaining({id: 4, name: 'testproduct3', price: 300, category: 'tools'}))
     })
 })

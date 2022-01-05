@@ -1,6 +1,6 @@
 import supertest from 'supertest'
 import app from '../../server'
-import { Client } from '../../database'
+
 
 let adminToken: string
 
@@ -25,22 +25,14 @@ describe('Testing product API endpoints', () => {
         const res = await request.get('/api/products')
         expect(res.status).toBe(200)
         expect(res.body).toEqual([
-                { id: 1, name: 'testproduct1', price: 100, category: 'games' },
-                { id: 2, name: 'testproduct2', price: 200, category: 'games' }
+            { id: 1, name: 'testorderproduct1', price: 150, category: 'games' },
+            { id: 2, name: 'testproduct1', price: 100, category: 'games' },
+            { id: 3, name: 'testproduct2', price: 200, category: 'games' }
             ])
     })
     it('[GET] to /api/products/:id should return the requested product an a 200', async () => {
-        const res = await request.get('/api/products/1')
+        const res = await request.get('/api/products/2')
         expect(res.status).toBe(200)
-        expect(res.body).toEqual({ id: 1, name: 'testproduct1', price: 100, category: 'games' })
+        expect(res.body).toEqual({ id: 2, name: 'testproduct1', price: 100, category: 'games' })
     })
-    //afterAll( async () => {
-        //cleanup users in testing db
-      //  const conn = await Client.connect()
-        //let sql = 'DELETE FROM users '
-        //await conn.query(sql)
-        //sql = 'DELETE FROM products '
-        //await conn.query(sql)
-        //conn.release()
-    //})
 })

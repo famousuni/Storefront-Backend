@@ -34,10 +34,19 @@ describe('Order Model', () => {
     it('index method should return a list of orders', async ()=> {
         const result = await store.index()
         expect(result[0].status).toEqual('open')
-        expect(result[1].status).toEqual('closed')
+        expect(result[1].status).toEqual('open')
+        expect(result[2].status).toEqual('open')
+        expect(result[3].status).toEqual('closed')
+
+
     })
     it('show method should return the requested order', async () => {
         const result = await store.show('1')
         expect(result.status).toEqual('open')
+    })
+    it('add product method should return qty, order_id, and product_id', async () => {
+        const result = await store.addProduct(5, '1', '1')
+        //console.log(result)
+        expect(result).toEqual(jasmine.objectContaining({id: 1, quantity: 5, product_id: '1', order_id: '1'}))
     })
 })

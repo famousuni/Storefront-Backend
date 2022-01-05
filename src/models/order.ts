@@ -1,4 +1,5 @@
 import { Client } from '../database'
+import {verifyAdminToken, verifyAuthToken} from "../middleware/authenticate";
 
 export type Order = {
     id: number
@@ -70,12 +71,25 @@ export class OrderStore {
         }
         try {
             const conn = await Client.connect()
-            const sql =
-                'INSERT INTO order_products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *'
-            const result = await conn.query(sql, [quantity, orderId, productId])
-            const order = result.rows[0]
-            conn.release()
-            return order
+            let sql = 'SELECT * FROM order_products WHERE order_id = ($1) AND product_id = ($2)'
+            let result = await conn.query(sql, [orderId, productId])
+            const exitingOrderProduct = result.rows[0]
+            if (exitingOrderProduct) {
+                //console.log("Updating existing order with this product")
+                sql = 'UPDATE order_products SET quantity=($1) WHERE order_id = ($2) AND product_id = ($3) RETURNING *'
+                result = await conn.query(sql, [quantity, orderId, productId])
+                const order = result.rows[0]
+                conn.release()
+                return order
+            } else {
+                //console.log("Adding product to order")
+                sql =
+                    'INSERT INTO order_products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *'
+                result = await conn.query(sql, [quantity, orderId, productId])
+                const order = result.rows[0]
+                conn.release()
+                return order
+            }
         } catch (err) {
             throw new Error(
                 `Could not add product ${productId} to order ${orderId}: ${err}`
@@ -83,3 +97,4 @@ export class OrderStore {
         }
     }
 }
+

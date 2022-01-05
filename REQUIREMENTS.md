@@ -20,7 +20,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Orders
 - Index [admin token required] = [GET] /api/orders
-- Show [admin token required] = [GET] /api/orders/:id
+- Show [admin token required] = [GET] /api/orders/:id (If tokens role is customer they can only get their own order object, if tokens role is admin they can get any order object)
 - Create [token required] - [POST] /api/orders
 - Add Product (args: order id, body: product id, qty) [token required] - [POST] /api/orders/:id
 - [TODO] Current Order by user (args: user id) [token required] - [GET] /api/dashboard/cart

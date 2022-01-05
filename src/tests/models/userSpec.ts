@@ -40,16 +40,16 @@ describe('User Model', () => {
     })
     it('index method should return a list of users', async () => {
         const result = await store.index()
-        expect(result[3].firstname).toEqual('testfirstname')
-        expect(result[4].firstname).toEqual('testfirstname2')
+        expect(result[4].firstname).toEqual('testfirstname')
+        expect(result[5].firstname).toEqual('testfirstname2')
     })
     it('show method should return the correct user', async () => {
-        const result = await store.show('4')
-        expect(result).toEqual(jasmine.objectContaining({id: 4, username: 'testuser', 'role': 'admin'}))
+        const result = await store.show('5')
+        expect(result).toEqual(jasmine.objectContaining({id: 5, username: 'testuser', 'role': 'admin'}))
     })
     it('update method should update the correct user', async () => {
         const user: User = <User>{
-            id: 5,
+            id: 6,
             username: 'testuser2',
             password: 'testpassword2',
             firstname: 'updatedfirstname',
@@ -57,11 +57,11 @@ describe('User Model', () => {
             role: 'customer'
         }
         const result = await store.update(user)
-        expect(result).toEqual(jasmine.objectContaining({id: 5, username: 'testuser2', firstname: 'updatedfirstname', lastname: 'testlastname2', 'role': 'customer'}))
+        expect(result).toEqual(jasmine.objectContaining({id: 6, username: 'testuser2', firstname: 'updatedfirstname', lastname: 'testlastname2', 'role': 'customer'}))
     })
     it('authenticate should return a user object if successful', async () => {
         const result = await store.authenticate('testuser2', 'testpassword2')
-        expect(result).toEqual(jasmine.objectContaining({id: 5, username: 'testuser2', role: 'customer'}))
+        expect(result).toEqual(jasmine.objectContaining({id: 6, username: 'testuser2', role: 'customer'}))
     })
     //afterAll( async () => {
         //cleanup users in testing db
