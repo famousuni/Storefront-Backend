@@ -40,8 +40,8 @@ describe('User Model', () => {
     })
     it('index method should return a list of users', async () => {
         const result = await store.index()
-        expect(result[0].firstname).toEqual('testfirstname')
-        expect(result[1].firstname).toEqual('testfirstname2')
+        expect(result[3].firstname).toEqual('testfirstname')
+        expect(result[4].firstname).toEqual('testfirstname2')
     })
     it('show method should return the correct user', async () => {
         const result = await store.show('4')
@@ -63,11 +63,11 @@ describe('User Model', () => {
         const result = await store.authenticate('testuser2', 'testpassword2')
         expect(result).toEqual(jasmine.objectContaining({id: 5, username: 'testuser2', role: 'customer'}))
     })
-    afterAll( async () => {
+    //afterAll( async () => {
         //cleanup users in testing db
-        const conn = await Client.connect()
-        const sql = 'DELETE FROM users '
-        await conn.query(sql)
-        conn.release()
-    })
+      //  const conn = await Client.connect()
+        //const sql = 'DELETE FROM users '
+        //await conn.query(sql)
+        //conn.release()
+    //})
 })

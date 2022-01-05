@@ -14,8 +14,8 @@ describe('Testing product API endpoints', () => {
         adminToken = res.body
         })
     it('[POST] to /api/products should create a new product and return a 200', async () => {
-        const product = {"name": "testproduct3", "price": 300, "category": "games"}
-        const product2 = {"name": "testproduct4", "price": 400, "category": "games"}
+        const product = {"name": "testproduct1", "price": 100, "category": "games"}
+        const product2 = {"name": "testproduct2", "price": 200, "category": "games"}
         let res = await request.post('/api/products').send(product).set('Accept', 'application/json').set('Authorization', `Bearer ${adminToken}`)
         expect(res.status).toBe(200)
         res = await request.post('/api/products').send(product2).set('Accept', 'application/json').set('Authorization', `Bearer ${adminToken}`)
@@ -25,22 +25,22 @@ describe('Testing product API endpoints', () => {
         const res = await request.get('/api/products')
         expect(res.status).toBe(200)
         expect(res.body).toEqual([
-                { id: 1, name: 'testproduct3', price: 300, category: 'games' },
-                { id: 2, name: 'testproduct4', price: 400, category: 'games' }
+                { id: 1, name: 'testproduct1', price: 100, category: 'games' },
+                { id: 2, name: 'testproduct2', price: 200, category: 'games' }
             ])
     })
     it('[GET] to /api/products/:id should return the requested product an a 200', async () => {
         const res = await request.get('/api/products/1')
         expect(res.status).toBe(200)
-        expect(res.body).toEqual({ id: 1, name: 'testproduct3', price: 300, category: 'games' })
+        expect(res.body).toEqual({ id: 1, name: 'testproduct1', price: 100, category: 'games' })
     })
-    afterAll( async () => {
+    //afterAll( async () => {
         //cleanup users in testing db
-        const conn = await Client.connect()
-        let sql = 'DELETE FROM users '
-        await conn.query(sql)
-        sql = 'DELETE FROM products '
-        await conn.query(sql)
-        conn.release()
-    })
+      //  const conn = await Client.connect()
+        //let sql = 'DELETE FROM users '
+        //await conn.query(sql)
+        //sql = 'DELETE FROM products '
+        //await conn.query(sql)
+        //conn.release()
+    //})
 })

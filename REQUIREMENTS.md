@@ -8,8 +8,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index - [GET] /api/products
 - Show (args: product id) - [GET] /api/products/:id
 - Create [admin token required] - [POST] /api/products
-- [OPTIONAL] Top 5 most popular products [GET] /api/dashboard/most-popular-products TODO
-- [OPTIONAL] Products by category (args: product category id) [GET] /api/products-by-category/:id TODO
+- [TODO OPTIONAL] Top 5 most popular products [GET] /api/dashboard/most-popular-products
+- [TODO OPTIONAL] Products by category (args: product category id) [GET] /api/products-by-category/:id
 
 #### Users
 - Index [admin token required] - [GET] /api/users
@@ -19,10 +19,12 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Login - [Post] /api/login
 
 #### Orders
+- Index [admin token required] = [GET] /api/orders
+- Show [admin token required] = [GET] /api/orders/:id
 - Create [token required] - [POST] /api/orders
 - Add Product (args: order id, body: product id, qty) [token required] - [POST] /api/orders/:id
-- Current Order by user (args: user id) [token required] - [GET] /api/dashboard/cart
-- [OPTIONAL] Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders
+- [TODO] Current Order by user (args: user id) [token required] - [GET] /api/dashboard/cart
+- [TODO OPTIONAL] Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders
 
 ## Data Shapes
 #### Product

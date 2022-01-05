@@ -1,5 +1,4 @@
 import { Product, ProductStore} from "../../models/product";
-import { Client } from '../../database'
 
 const store = new ProductStore()
 
@@ -14,30 +13,30 @@ describe('Product Model', () => {
     it('should have a create method', () => {
         expect(store.index).toBeDefined()
     })
-    it('create method should add a product', async () => {
+    it('create method should create and return a product', async () => {
         const product: Product = <Product>{
-            name: 'testproduct1',
-            price: 100,
+            name: 'testproduct3',
+            price: 300,
             category: 'tools'
         }
         const product2: Product = <Product>{
-            name: 'testproduct2',
-            price: 200,
+            name: 'testproduct4',
+            price: 400,
             category: 'tools'
         }
         let result = await store.create(product)
-        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct1', price: 100, category: 'tools'}))
+        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct3', price: 300, category: 'tools'}))
         result = await store.create(product2)
-        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct2', price: 200, category: 'tools'}))
+        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct4', price: 400, category: 'tools'}))
 
     })
     it('index method should return a list of products', async () => {
         const result = await store.index()
-        expect(result[0].name).toEqual('testproduct1')
-        expect(result[1].name).toEqual('testproduct2')
+        expect(result[2].name).toEqual('testproduct3')
+        expect(result[3].name).toEqual('testproduct4')
     })
     it('show method should return the correct product', async () => {
         const result = await store.show('3')
-        expect(result).toEqual(jasmine.objectContaining({id: 3, name: 'testproduct1', price: 100, category: 'tools'}))
+        expect(result).toEqual(jasmine.objectContaining({id: 3, name: 'testproduct3', price: 300, category: 'tools'}))
     })
 })
