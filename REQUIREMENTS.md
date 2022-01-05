@@ -23,8 +23,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Show [admin token required] = [GET] /api/orders/:id (If tokens role is customer they can only get their own order object, if tokens role is admin they can get any order object)
 - Create [token required] - [POST] /api/orders
 - Add Product (args: order id, body: product id, qty) [token required] - [POST] /api/orders/:id
-- [TODO] Current Order by user (args: user id) [token required] - [GET] /api/dashboard/cart
-- [TODO OPTIONAL] Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders
+- Current Order by user (args: user id) [token required] - [GET] /api/dashboard/cart
+- [TODO NEXT OPTIONAL] Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders
 
 ## Data Shapes
 #### Product

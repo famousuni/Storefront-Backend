@@ -45,8 +45,8 @@ describe('Order Model', () => {
         expect(result.status).toEqual('open')
     })
     it('add product method should return qty, order_id, and product_id', async () => {
-        const result = await store.addProduct(5, '1', '1')
+        const result = await store.addProduct(6, '1', '1')
         //console.log(result)
-        expect(result).toEqual(jasmine.objectContaining({id: 1, quantity: 5, product_id: '1', order_id: '1'}))
+        expect(result).toEqual(jasmine.objectContaining({id: 1, quantity: 6, product_id: '1', order_id: '1'}))
     })
 })
