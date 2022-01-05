@@ -30,35 +30,35 @@ describe('Testing user API endpoints', () => {
         expect(res.status).toBe(200)
     })
     it('[GET] to /api/users/:id should get the user information for the id presented and return a 200', async ()=> {
-        const res = await request.get('/api/users/1').set('Authorization', `Bearer ${customerToken}`)
+        const res = await request.get('/api/users/2').set('Authorization', `Bearer ${customerToken}`)
         expect(res.status).toBe(200)
-        expect(res.body).toEqual(jasmine.objectContaining({'id': 1, 'username': 'testuser3', 'firstname': 'testfirstname3', 'lastname': 'testlastname3', 'role': 'customer'}))
+        expect(res.body).toEqual(jasmine.objectContaining({'id': 2, 'username': 'testuser3', 'firstname': 'testfirstname3', 'lastname': 'testlastname3', 'role': 'customer'}))
     })
     it('[GET] to /api/users/:id to another user id should return 401 if not admin', async ()=> {
-        const res = await request.get('/api/users/2').set('Authorization', `Bearer ${customerToken}`)
+        const res = await request.get('/api/users/3').set('Authorization', `Bearer ${customerToken}`)
         expect(res.status).toBe(401)
     })
     it('[GET] to /api/users/:id to another user id should return 200 if admin', async ()=> {
-        const res = await request.get('/api/users/1').set('Authorization', `Bearer ${adminToken}`)
+        const res = await request.get('/api/users/2').set('Authorization', `Bearer ${adminToken}`)
         expect(res.status).toBe(200)
     })
     it('[PUT] to /api/users/:id should update your user and return a 200 and user object', async () => {
         const user = {"username": "testuser3", "password": "testpassword3", "firstname": "newfirstname3", "lastname": "testlastname3", "role": "customer"}
-        const res = await request.put('/api/users/1').send(user).set('Accept', 'application/json').set('Authorization', `Bearer ${customerToken}`)
+        const res = await request.put('/api/users/2').send(user).set('Accept', 'application/json').set('Authorization', `Bearer ${customerToken}`)
         expect(res.status).toBe(200)
-        expect(res.body).toEqual(jasmine.objectContaining({'id': 1, 'username': 'testuser3', 'firstname': 'newfirstname3', 'lastname': 'testlastname3', 'role': 'customer'}))
+        expect(res.body).toEqual(jasmine.objectContaining({'id': 2, 'username': 'testuser3', 'firstname': 'newfirstname3', 'lastname': 'testlastname3', 'role': 'customer'}))
 
     })
     it('[PUT] to /api/users/:id should return a 401 if customer is attempting to alter another user', async () => {
         const user = {"username": "testuser3", "password": "testpassword3", "firstname": "newfirstname3", "lastname": "testlastname3", "role": "customer"}
-        const res = await request.put('/api/users/2').send(user).set('Accept', 'application/json').set('Authorization', `Bearer ${customerToken}`)
+        const res = await request.put('/api/users/3').send(user).set('Accept', 'application/json').set('Authorization', `Bearer ${customerToken}`)
         expect(res.status).toBe(401)
     })
     it('[PUT] to /api/users/:id by admin can update any user and return a 200 and the user object', async () => {
         const user = {"username": "testuser3", "password": "testpassword3", "firstname": "adminchangedfirstname", "lastname": "testlastname3", "role": "customer"}
-        const res = await request.put('/api/users/1').send(user).set('Accept', 'application/json').set('Authorization', `Bearer ${customerToken}`)
+        const res = await request.put('/api/users/2').send(user).set('Accept', 'application/json').set('Authorization', `Bearer ${customerToken}`)
         expect(res.status).toBe(200)
-        expect(res.body).toEqual(jasmine.objectContaining({'id': 1, 'username': 'testuser3', 'firstname': 'adminchangedfirstname', 'lastname': 'testlastname3', 'role': 'customer'}))
+        expect(res.body).toEqual(jasmine.objectContaining({'id': 2, 'username': 'testuser3', 'firstname': 'adminchangedfirstname', 'lastname': 'testlastname3', 'role': 'customer'}))
 
     })
     it('[POST] to /api/login should return a 200 and JWT', async () => {

@@ -37,7 +37,7 @@ describe('Product Model', () => {
         expect(result[1].name).toEqual('testproduct2')
     })
     it('show method should return the correct product', async () => {
-        const result = await store.show('1')
-        expect(result).toEqual(jasmine.objectContaining({id: 1, name: 'testproduct1', price: 100, category: 'tools'}))
+        const result = await store.show('3')
+        expect(result).toEqual(jasmine.objectContaining({id: 3, name: 'testproduct1', price: 100, category: 'tools'}))
     })
 })
