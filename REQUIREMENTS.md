@@ -8,8 +8,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index - [GET] /api/products
 - Show (args: product id) - [GET] /api/products/:id
 - Create [admin token required] - [POST] /api/products
-- [OPTIONAL] Top 5 most popular products [GET] /api/most-popular-products
-- [OPTIONAL] Products by category (args: product category id) [GET] /api/products-by-category/:id
+- [OPTIONAL] Top 5 most popular products [GET] /api/dashboard/most-popular-products TODO
+- [OPTIONAL] Products by category (args: product category id) [GET] /api/products-by-category/:id TODO
 
 #### Users
 - Index [admin token required] - [GET] /api/users
