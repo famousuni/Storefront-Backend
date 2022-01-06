@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express'
 import bodyParser from 'body-parser'
-import user_routes from "./handlers/users";
-import product_routes from "./handlers/products"
-import order_routes from "./handlers/orders";
-import dashboard_routes from "./handlers/dashboards";
+import user_routes from './handlers/users'
+import product_routes from './handlers/products'
+import order_routes from './handlers/orders'
+import dashboard_routes from './handlers/dashboards'
 
 const app: express.Application = express()
 const address = '0.0.0.0:3000'
