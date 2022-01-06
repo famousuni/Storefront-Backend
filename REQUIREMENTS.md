@@ -8,8 +8,9 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index - [GET] /api/products
 - Show (args: product id) - [GET] /api/products/:id
 - Create [admin token required] - [POST] /api/products
-- [TODO OPTIONAL] Top 5 most popular products [GET] /api/dashboard/most-popular-products
-- [TODO OPTIONAL] Products by category (args: product category id) [GET] /api/products-by-category/:id
+- Create [admin token required] - [POST] /api/products/category - Used for creating new product categories
+- [OPTIONAL] Top 5 most popular products [GET] /api/dashboard/most-popular-products
+- Products by category (args: product category id) [GET] /api/dashboard/products-by-category/:id
 
 #### Users
 - Index [admin token required] - [GET] /api/users
@@ -25,7 +26,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Update [token required] - [PUT] /api/orders/:id  (If tokens role is customer they can only update their own order object, if tokens role is admin they can update any order object)
 - Add Product (args: order id, body: product id, qty) [token required] - [POST] /api/orders/:id
 - Current Order by user (args: user id) [token required] - [GET] /api/dashboard/cart
-- [OPTIONAL] Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders/:id - Users can only list their own completed orders admins can list any users completed orders
+- Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders/:id - Users can only list their own completed orders admins can list any users completed orders
 
 ## Data Shapes
 #### Product
@@ -38,7 +39,15 @@ These are the notes from a meeting with the frontend developer that describe wha
     id SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
     price integer NOT NULL,
-    category VARCHAR
+    category_id bigint REFERENCES product_categories(id))
+
+#### Product Categories
+- id
+- name
+
+#### Product Categories Table
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20)
 
 #### User
 - id

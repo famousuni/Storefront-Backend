@@ -11,7 +11,7 @@ export class DashboardQueries {
             //console.log(result.rows)
             if (result.rows.length === 0) return result.rows
             //console.log(result.rows[0].id)
-            sql = 'SELECT name, price, order_id, quantity FROM products INNER JOIN order_products ON products.id = order_products.id WHERE order_id = ($1)'
+            sql = 'SELECT name, price, order_id, quantity FROM products INNER JOIN order_products ON products.id = order_products.product_id WHERE order_id = ($1)'
             result = await conn.query(sql, [result.rows[0].id])
             conn.release()
             //console.log(result)
@@ -31,7 +31,7 @@ export class DashboardQueries {
             let results:QueryResult[] = []
             for (let row of result.rows) {
                 //console.log(row.id)
-                sql = 'SELECT name, price, order_id, quantity FROM products INNER JOIN order_products ON products.id = order_products.id WHERE order_id = ($1)'
+                sql = 'SELECT name, price, order_id, quantity FROM products INNER JOIN order_products ON products.id = order_products.product_id WHERE order_id = ($1)'
                 result = await conn.query(sql, [row.id])
                 if (result.rows[0] !== undefined) {
                     results.push(result.rows[0])
@@ -44,4 +44,22 @@ export class DashboardQueries {
             throw new Error(`Unable to list order items: ${err}`)
         }
     }
-}
+
+    async productsByCategory(id: string): Promise<QueryResult[]> {
+        try {
+        const conn = await Client.connect()
+        let sql = 'SELECT products.name, price, product_categories.name AS category_name FROM product_categories INNER JOIN products ON product_categories.id = products.category_id WHERE category_id = ($1)'
+        let results:QueryResult[] = []
+        let result = await conn.query(sql, [id])
+        if (result.rows.length === 0) return result.rows
+        for (let row of result.rows) {
+            if (result.rows[0] !== undefined) {
+                results.push(result.rows[0])
+            }
+        }
+        conn.release()
+        return results
+    } catch (err) {
+        throw new Error(`Unable to list products by category: ${err}`)
+    }
+}}

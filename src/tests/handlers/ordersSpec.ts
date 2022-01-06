@@ -11,8 +11,13 @@ describe('Testing order API endpoints', () => {
         let res = await request.post('/api/users').send(user).set('Accept', 'application/json')
         expect(res.status).toBe(200)
         adminToken = res.body
-        const product = {"name": "testorderproduct1", "price": 150, "category": "games"}
+        res = await request.post('/api/products/category').send({"name": "games"}).set('Accept', 'application/json').set('Authorization', `Bearer ${adminToken}`)
+        expect(res.status).toBe(200)
+        res = await request.post('/api/products/category').send({"name": "tools"}).set('Accept', 'application/json').set('Authorization', `Bearer ${adminToken}`)
+        expect(res.status).toBe(200)
+        const product = {"name": "testorderproduct1", "price": 150, "category_id": '1'}
         res = await request.post('/api/products').send(product).set('Accept', 'application/json').set('Authorization', `Bearer ${adminToken}`)
+        //console.log(res.body)
         expect(res.status).toBe(200)
     })
     it('[POST] to /api/orders should create a new order and return a 200', async () => {
@@ -26,6 +31,7 @@ describe('Testing order API endpoints', () => {
     })
     it('[GET] to /api/orders should return a 200 and list of orders', async () => {
         const res = await request.get('/api/orders').set('Authorization', `Bearer ${adminToken}`)
+        //console.log(res.body)
         expect(res.status).toBe(200)
     })
     it('[GET] to /api/orders/:id should return a 200 and the requested order', async () => {

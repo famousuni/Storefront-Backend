@@ -20,4 +20,8 @@ describe('Testing dashboard API endpoints', () => {
         const res = await request.get('/api/dashboard/orders/1').set('Authorization', `Bearer ${adminToken}`)
         expect(res.status).toBe(200)
     })
+    it('[GET] to /api/dashboard/products-by-category/:id should return a list of products if they exist in the category id and a 200', async () => {
+        const res = await request.get('/api/dashboard/products-by-category/1')
+        expect(res.status).toBe(200)
+    })
 })

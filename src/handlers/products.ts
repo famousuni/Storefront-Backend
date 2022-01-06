@@ -32,7 +32,7 @@ const create = async (req: Request, res: Response) => {
     const product: Product = <Product>{
         name: req.body.name,
         price: req.body.price,
-        category: req.body.category
+        category_id: req.body.category_id
     }
     try {
         const newProduct = await store.create(product)
@@ -43,10 +43,21 @@ const create = async (req: Request, res: Response) => {
     }
 }
 
+const createCategory = async (req: Request, res: Response) => {
+    try {
+        const newCategory = await store.createCategory(req.body.name)
+        res.json(newCategory)
+    } catch (err) {
+        res.status(400)
+        res.json(err.message)
+    }
+}
+
 const product_routes = (app: express.Application) => {
     app.get('/api/products', index)
     app.get('/api/products/:id', show)
     app.post('/api/products', verifyAuthToken, verifyAdminToken, create)
+    app.post('/api/products/category', verifyAuthToken, verifyAdminToken, createCategory)
 }
 
 export default product_routes

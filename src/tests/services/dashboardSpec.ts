@@ -47,12 +47,16 @@ describe('Dashboard Service', () => {
 
     it('User current order should return items in the users cart', async () => {
         const result = await store.userCurrentOrder('1')
-        expect(result).toEqual(jasmine.objectContaining({ name: 'testproduct1', price: 100, order_id: '2', quantity: 6 })
+        expect(result).toEqual(jasmine.objectContaining({ name: 'testorderproduct1', price: 150, order_id: '2', quantity: 6 })
         )
     })
     it('User completed order should return items in the users cart', async () => {
         const result = await store.userCompletedOrders('1')
         expect(result[0]).toEqual(jasmine.objectContaining({name: 'testorderproduct1', price: 150, order_id: '1', quantity: 1})
         )
+    })
+    it('Product by category should return a list of products and a 200', async () => {
+        const result = await store.productsByCategory('1')
+        expect(result[0]).toEqual(jasmine.objectContaining({category_name: 'games'}))
     })
 })

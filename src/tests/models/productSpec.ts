@@ -17,17 +17,17 @@ describe('Product Model', () => {
         const product: Product = <Product>{
             name: 'testproduct3',
             price: 300,
-            category: 'tools'
+            category_id: 2
         }
         const product2: Product = <Product>{
             name: 'testproduct4',
             price: 400,
-            category: 'tools'
+            category_id: 2
         }
         let result = await store.create(product)
-        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct3', price: 300, category: 'tools'}))
+        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct3', price: 300, category_id: '2'}))
         result = await store.create(product2)
-        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct4', price: 400, category: 'tools'}))
+        expect(result).toEqual(jasmine.objectContaining({name: 'testproduct4', price: 400, category_id: '2'}))
 
     })
     it('index method should return a list of products', async () => {
@@ -37,6 +37,6 @@ describe('Product Model', () => {
     })
     it('show method should return the correct product', async () => {
         const result = await store.show('4')
-        expect(result).toEqual(jasmine.objectContaining({id: 4, name: 'testproduct3', price: 300, category: 'tools'}))
+        expect(result).toEqual(jasmine.objectContaining({id: 4, name: 'testproduct3', price: 300, category_id: '2'}))
     })
 })

@@ -1,10 +1,11 @@
 import { Client } from '../database'
+import {Order} from "./order";
 
 export type Product = {
     id: number
     name: string
     price: number
-    category: string
+    category_id: number
 }
 
 export class ProductStore {
@@ -37,13 +38,27 @@ export class ProductStore {
         try {
             const conn = await Client.connect()
             const sql =
-                'INSERT INTO products (name, price, category) VALUES ($1, $2, $3) RETURNING *'
-            const result = await conn.query(sql, [p.name, p.price, p.category])
+                'INSERT INTO products (name, price, category_id) VALUES ($1, $2, $3) RETURNING *'
+            const result = await conn.query(sql, [p.name, p.price, p.category_id])
             const product = result.rows[0]
             conn.release()
             return product
         } catch (err) {
-            throw new Error(`Could not add new prodcut ${p.name}. Error ${err}`)
+            throw new Error(`Could not add new product ${p.name}. Error ${err}`)
+        }
+    }
+    async createCategory(name: string,): Promise<{id: string, name: string}> {
+        try {
+            const conn = await Client.connect()
+            const sql = 'INSERT INTO product_categories (name) VALUES ($1) RETURNING *'
+            const result = await conn.query(sql, [name])
+            const category = result.rows[0]
+            conn.release()
+            return category
+        } catch (err) {
+            throw new Error(`Could not add new category ${name}. Error ${err}`)
         }
     }
 }
+
+
