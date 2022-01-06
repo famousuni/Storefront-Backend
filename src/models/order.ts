@@ -33,6 +33,19 @@ export class OrderStore {
         }
     }
 
+    async update(o: Order): Promise<Order> {
+        try {
+            const conn = await Client.connect()
+            const sql = 'UPDATE orders SET status=($1) WHERE id=($2) RETURNING *'
+            const result = await conn.query(sql, [o.status, o.id])
+            const order = result.rows[0] as Order
+            conn.release()
+            return order
+        } catch (err) {
+            throw new Error(`Could not update order ${o.id}. Error ${err}`)
+        }
+    }
+
     async create(o: Order): Promise<Order> {
         try {
             const conn = await Client.connect()
@@ -60,7 +73,7 @@ export class OrderStore {
             const conn = await Client.connect()
             const result = await conn.query(ordersql, [orderId])
             const order = result.rows[0]
-            if (order.status !== 'open') {
+            if (order.status !== 'active') {
                 throw new Error(
                     `Could not add product ${productId} to order ${orderId} because order status is ${order.status}`
                 )

@@ -25,11 +25,28 @@ const show = async(req: Request, res: Response) => {
         res.json(order)
     } catch (err) {
         res.status(401)
-        console.log(res.locals.role)
-        console.log(err.message)
+        //console.log(res.locals.role)
+        //console.log(err.message)
         res.json(`Error: ${err.message}`)
     }
 
+}
+
+const update = async(req: Request, res: Response) => {
+    try {
+        if (res.locals.role === 'customer' && (req.params.id !== res.locals.id.toString())) throw new Error('customers can only update their own orders')
+        if (res.locals.role !== 'customer' && res.locals.role !== 'admin') throw new Error('invalid role')
+        const order: Order = <Order> {
+            id: parseInt(req.params.id),
+            status: req.body.status,
+            user_id: req.body.user_id
+        }
+        const result = await store.update(order)
+        res.json(result)
+    } catch (err) {
+        res.status(400)
+        res.json(err.message)
+    }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -51,7 +68,7 @@ const create = async (req: Request, res: Response) => {
         res.json(newOrder)
     } catch (err) {
         res.status(400)
-        console.log(err.message)
+        //console.log(err.message)
         res.json(err.message)
     }
 }
@@ -72,6 +89,7 @@ const addProduct = async (_req: Request, res: Response) => { //TODO: users shoul
 const order_routes = (app: express.Application) => {
     app.get('/api/orders', verifyAuthToken, verifyAdminToken, index)
     app.get('/api/orders/:id', verifyAuthToken, addRole, show)
+    app.put('/api/orders/:id', verifyAuthToken, addRole, update)
     app.post('/api/orders', verifyAuthToken, create)
     app.post('/api/orders/:id/products', verifyAuthToken, addProduct)
 }

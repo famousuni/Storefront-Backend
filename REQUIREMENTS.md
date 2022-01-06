@@ -16,15 +16,16 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Show (args: user id) [user token required] - [GET] /api/users/:id (If tokens role is customer they can only get their own user object, if tokens role is admin they can get any user object)
 - Create - [POST] /api/users
 - Update [user token required] - [PUT] /api/users/:id (If tokens role is customer they can only update their own user object and cannot change their role, if tokens role is admin they can update any user object)
-- Login - [Post] /api/login
+- Login - [POST] /api/login - JWT needs to be included as bearer token
 
 #### Orders
-- Index [admin token required] = [GET] /api/orders
-- Show [admin token required] = [GET] /api/orders/:id (If tokens role is customer they can only get their own order object, if tokens role is admin they can get any order object)
+- Index [admin token required] - [GET] /api/orders
+- Show [admin token required] - [GET] /api/orders/:id (If tokens role is customer they can only get their own order object, if tokens role is admin they can get any order object)
 - Create [token required] - [POST] /api/orders
+- Update [token required] - [PUT] /api/orders/:id  (If tokens role is customer they can only update their own order object, if tokens role is admin they can update any order object)
 - Add Product (args: order id, body: product id, qty) [token required] - [POST] /api/orders/:id
 - Current Order by user (args: user id) [token required] - [GET] /api/dashboard/cart
-- [TODO NEXT OPTIONAL] Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders
+- [OPTIONAL] Completed Orders by user (args: user id) [token required] - [GET] /api/dashboard/orders/:id - Users can only list their own completed orders admins can list any users completed orders
 
 ## Data Shapes
 #### Product
