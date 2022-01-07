@@ -10,16 +10,17 @@ This project is the backend for a storefront application written in TS utilizing
 
 ## Environment variable setup
 1. Create a file called .env and place it in the project directory filling out the following attributes. This will be used by both the code and by postgres when bootstrapping the container
-   POSTGRES_USER=full_stack_dev
-   POSTGRES_PASSWORD=<STRING>
-   PG_DB=storefront_dev
-   PG_TEST_DB=storefront_test
-   PG_PORT=5432
-   PG_HOST=127.0.0.1
-   ENV=dev
-   BCRYPT_PASSWORD=<STRING>
-   SALT_ROUNDS=<INT>
-   TOKEN_SECRET=<STRING>
+#### 
+      POSTGRES_USER=full_stack_dev
+      POSTGRES_PASSWORD=<STRING>
+      PG_DB=storefront_dev
+      PG_TEST_DB=storefront_test
+      PG_PORT=5432
+      PG_HOST=127.0.0.1
+      ENV=dev
+      BCRYPT_PASSWORD=<STRING>
+      SALT_ROUNDS=<INT>
+      TOKEN_SECRET=<STRING>
 
 ## DB Setup (POSTGRES will listen on port 5432)
 2. Install Docker
