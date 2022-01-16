@@ -2,7 +2,7 @@
   "dev": {
     "driver": "pg",
     "host": { "ENV": "PG_HOST" },
-    "database": { "ENV": "PGDB_DB" },
+    "database": { "ENV": "PG_DB" },
     "username": { "ENV": "POSTGRES_USER" },
     "password": { "ENV": "POSTGRES_PASSWORD" }
   },
